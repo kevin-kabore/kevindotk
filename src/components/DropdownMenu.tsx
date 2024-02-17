@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
+import Link from 'next/link'
 
 interface MenuItem {
   title: string
   id?: string
-  onClick?: () => void
+  href?: string
 }
 
 interface DropdownMenuProps {
@@ -52,13 +53,6 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     }
   }, [])
 
-  const handleItemClick = (item: MenuItem) => {
-    if (item.onClick) {
-      item.onClick()
-    }
-    setIsOpen(false)
-  }
-
   return (
     <div
       className="relative"
@@ -79,9 +73,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           <ul className="py-2">
             {items.map((item, index) => (
               <li key={index}>
-                <button onClick={() => handleItemClick(item)}>
-                  {item.title}
-                </button>
+                {item.href ? (
+                  <Link href={item.href}>{item.title}</Link>
+                ) : (
+                  <button>{item.title}</button>
+                )}
               </li>
             ))}
           </ul>

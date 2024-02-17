@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import DropdownMenu from './DropdownMenu'
 
 const HomeDropdownMenu: React.FC = () => {
@@ -6,22 +7,22 @@ const HomeDropdownMenu: React.FC = () => {
     {
       title: 'About',
       id: 'about',
-      onClick: () => (window.location.href = '/#about'),
+      href: '/#about',
     },
     {
       title: 'Experience',
       id: 'experience',
-      onClick: () => (window.location.href = '/#experience'),
+      href: '/#experience',
     },
     {
       title: 'Interests',
       id: 'interests',
-      onClick: () => (window.location.href = '/#interests'),
+      href: '/#interests',
     },
     {
       title: 'Contact',
       id: 'contact',
-      onClick: () => (window.location.href = '/#contact'),
+      href: '/#contact',
     },
   ]
   return <DropdownMenu title="Me" items={items} openOnHover />
@@ -33,13 +34,14 @@ const Navbar: React.FC = () => {
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
-        <h1 className="text-lg font-bold">Logo/Home</h1>
+        <Link href="/">
+          <h1 className="text-lg font-bold cursor-pointer">Logo/Home</h1>
+        </Link>
         {/* Me dropdown menu */}
         <div className="relative">
           <HomeDropdownMenu />
         </div>
         {/* Blog */}
-
         <a href="/blog" className="hover:text-gray-300">
           Blog
         </a>
