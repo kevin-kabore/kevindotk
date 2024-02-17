@@ -1,6 +1,6 @@
 import React from 'react'
-// import Navbar from '../components/Navbar'
 import Layout from '@/components/Layout'
+import TextSlideshow from '@/components/TextSlideshow'
 
 const Hero: React.FC = () => {
   const scrollToAbout = () => {
@@ -9,6 +9,18 @@ const Hero: React.FC = () => {
       aboutSection.scrollIntoView({behavior: 'smooth'})
     }
   }
+
+  const textSlideshowItems = [
+    'a software engineer...',
+    'a Peloton employee...',
+    'an NYU Alum...',
+    'a Montverde Academy Alum...',
+    'a tech enthusiast...',
+    'a self-proclaimed economist...',
+    'a competitor...',
+    'an optimist...',
+    'a follower of Christ...',
+  ]
   return (
     <div className="relative h-screen">
       {/* Placeholder Hero with Video Background */}
@@ -30,11 +42,14 @@ const Hero: React.FC = () => {
           {/* Add additional video sources for different formats if necessary */}
         </video>
         {/* Animated Slideshow with Placeholder Text */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+        <div className="absolute inset-0">
+          <TextSlideshow prefix="kevin is" items={textSlideshowItems} />
+        </div>
+        {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Kevindotk is <span className="slider">...</span>
           </h1>
-        </div>
+        </div> */}
         {/* Animated Down Arrow Button */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <button
