@@ -4,10 +4,6 @@ import DropdownMenu from './DropdownMenu'
 const HomeDropdownMenu: React.FC = () => {
   const items = [
     {
-      title: 'Home',
-      onClick: () => (window.location.href = '/'),
-    },
-    {
       title: 'About',
       id: 'about',
       onClick: () => (window.location.href = '/#about'),
