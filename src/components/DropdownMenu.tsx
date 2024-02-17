@@ -1,8 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react'
+import Link from 'next/link'
+
+interface MenuItem {
+  title: string
+  id?: string
+  href?: string
+}
 
 interface DropdownMenuProps {
   title: string
-  items: {title: string; link?: string}[]
+  items: MenuItem[]
   openOnHover?: boolean
 }
 
@@ -46,10 +53,6 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     }
   }, [])
 
-  const handleItemClick = () => {
-    setIsOpen(false)
-  }
-
   return (
     <div
       className="relative"
@@ -70,9 +73,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           <ul className="py-2">
             {items.map((item, index) => (
               <li key={index}>
-                <a href={item.link} onClick={handleItemClick}>
-                  {item.title}
-                </a>
+                {item.href ? (
+                  <Link href={item.href}>{item.title}</Link>
+                ) : (
+                  <button>{item.title}</button>
+                )}
               </li>
             ))}
           </ul>

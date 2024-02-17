@@ -1,5 +1,6 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
+import Layout from '@/components/Layout'
 
 const Hero: React.FC = () => {
   const scrollToAbout = () => {
@@ -63,8 +64,8 @@ const Hero: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <Navbar />
+    <Layout>
+      {/* <Navbar /> */}
       <Hero />
       {/* Main Content */}
       <div>
@@ -115,7 +116,7 @@ const Home: React.FC = () => {
           </section>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 
