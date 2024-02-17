@@ -3,10 +3,30 @@ import DropdownMenu from './DropdownMenu'
 
 const HomeDropdownMenu: React.FC = () => {
   const items = [
-    {title: 'About', link: '#about'},
-    {title: 'Experience', link: '#experience'},
-    {title: 'Interests', link: '#interests'},
-    {title: 'Contact', link: '#contact'},
+    {
+      title: 'Home',
+      onClick: () => (window.location.href = '/'),
+    },
+    {
+      title: 'About',
+      id: 'about',
+      onClick: () => (window.location.href = '/#about'),
+    },
+    {
+      title: 'Experience',
+      id: 'experience',
+      onClick: () => (window.location.href = '/#experience'),
+    },
+    {
+      title: 'Interests',
+      id: 'interests',
+      onClick: () => (window.location.href = '/#interests'),
+    },
+    {
+      title: 'Contact',
+      id: 'contact',
+      onClick: () => (window.location.href = '/#contact'),
+    },
   ]
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
@@ -23,7 +43,8 @@ const Navbar: React.FC = () => {
           <HomeDropdownMenu />
         </div>
         {/* Blog */}
-        <a href="#blog" className="hover:text-gray-300">
+
+        <a href="/blog" className="hover:text-gray-300">
           Blog
         </a>
       </div>

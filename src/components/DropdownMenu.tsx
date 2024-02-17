@@ -1,8 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+interface MenuItem {
+  title: string
+  id?: string
+  onClick?: () => void
+}
+
 interface DropdownMenuProps {
   title: string
-  items: {title: string; link?: string}[]
+  items: MenuItem[]
   openOnHover?: boolean
 }
 
@@ -46,7 +52,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     }
   }, [])
 
-  const handleItemClick = () => {
+  const handleItemClick = (item: MenuItem) => {
+    if (item.onClick) {
+      item.onClick()
+    }
     setIsOpen(false)
   }
 
@@ -70,9 +79,9 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           <ul className="py-2">
             {items.map((item, index) => (
               <li key={index}>
-                <a href={item.link} onClick={handleItemClick}>
+                <button onClick={() => handleItemClick(item)}>
                   {item.title}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
