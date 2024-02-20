@@ -42,9 +42,7 @@ const Navbar: React.FC = () => {
           <HomeDropdownMenu />
         </div>
         {/* Blog */}
-        <a href="/blog" className="hover:text-gray-300">
-          Blog
-        </a>
+        <Link href="/blog">Blog</Link>
       </div>
       {/* Right section */}
       <div className="flex items-center space-x-4">
