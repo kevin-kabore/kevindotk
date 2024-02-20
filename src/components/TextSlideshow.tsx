@@ -25,7 +25,7 @@ const TextSlideshow: React.FC<TextSlideshowProps> = ({prefix, items}) => {
           setIsDeleting(true) // Start deleting once text is fully typed
           timeout = setTimeout(() => {
             setIsDeleting(false) // Stop deleting after 1 second
-          }, 500)
+          }, 1000)
         }
       } else {
         // Deleting the current item
