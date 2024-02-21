@@ -30,7 +30,7 @@ const HomeDropdownMenu: React.FC = () => {
 
 const Navbar: React.FC = () => {
   return (
-    <header className="fixed top-0 left-0 w-full bg-black text-white py-4 px-6 z-50 flex justify-between items-center">
+    <header className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
