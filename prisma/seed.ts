@@ -1,8 +1,8 @@
-const {PrismaClient} = require('@prisma/client')
+import {PrismaClient} from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 async function main() {
-  // Create a user
   const user = await prisma.user.create({
     data: {
       name: 'Kevin Kabore',
@@ -10,7 +10,6 @@ async function main() {
     },
   })
 
-  // Create another user for comments and likes
   const jane = await prisma.user.create({
     data: {
       name: 'Jane Doe',
@@ -18,7 +17,6 @@ async function main() {
     },
   })
 
-  // Create a post
   const post = await prisma.post.create({
     data: {
       title: 'First Post',
@@ -28,7 +26,6 @@ async function main() {
     },
   })
 
-  // Add comments to the post
   await prisma.comment.create({
     data: {
       content: 'Great post!',
@@ -45,7 +42,6 @@ async function main() {
     },
   })
 
-  // User likes the post
   await prisma.like.create({
     data: {
       postId: post.id,
@@ -53,10 +49,38 @@ async function main() {
     },
   })
 
-  // Optionally, add views to the post by updating it
   await prisma.post.update({
     where: {id: post.id},
-    data: {views: 1}, // You can increase this based on your needs
+    data: {views: 1},
+  })
+
+  const secondPost = await prisma.post.create({
+    data: {
+      title: 'Second Post',
+      content: 'This is the content of the second post.',
+      summary: 'This is a summary of the second post.',
+      authorId: jane.id,
+    },
+  })
+
+  await prisma.comment.create({
+    data: {
+      content: 'Great second post!',
+      postId: secondPost.id,
+      authorId: user.id,
+    },
+  })
+
+  await prisma.like.create({
+    data: {
+      postId: secondPost.id,
+      authorId: user.id,
+    },
+  })
+
+  await prisma.post.update({
+    where: {id: secondPost.id},
+    data: {views: 2},
   })
 
   console.log('Seed data added!')
