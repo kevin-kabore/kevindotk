@@ -3,9 +3,9 @@ import Navbar from './Navbar'
 
 const Layout: React.FC<{children: ReactNode}> = ({children}) => {
   return (
-    <div>
+    <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-black min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4">{children}</div>
+      <main className="text-white min-h-screen">{children}</main>
     </div>
   )
 }
