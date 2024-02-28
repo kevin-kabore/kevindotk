@@ -28,7 +28,7 @@ const HomeDropdownMenu: React.FC = () => {
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
 
-const Navbar: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <header className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
       {/* Left section */}
@@ -55,4 +55,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default Header
