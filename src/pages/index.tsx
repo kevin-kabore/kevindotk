@@ -80,7 +80,6 @@ const Hero: React.FC = () => {
 const Home: React.FC = () => {
   return (
     <Layout>
-      {/* <Navbar /> */}
       <Hero />
       {/* Main Content */}
       <div>
