@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import {signIn, signOut, useSession} from 'next-auth/react'
 import DropdownMenu from './DropdownMenu'
 
 const HomeDropdownMenu: React.FC = () => {
@@ -28,7 +29,8 @@ const HomeDropdownMenu: React.FC = () => {
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
 
-const Navbar: React.FC = () => {
+const Header: React.FC = () => {
+  const {data: session} = useSession()
   return (
     <header className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
       {/* Left section */}
@@ -46,13 +48,18 @@ const Navbar: React.FC = () => {
       </div>
       {/* Right section */}
       <div className="flex items-center space-x-4">
-        {/* Sign in button */}
-        <button className="hover:text-gray-300">Sign In</button>
-        {/* Sign up button */}
-        <button className="hover:text-gray-300">Sign Up</button>
+        {session ? (
+          <button className="hover:text-gray-300" onClick={() => signOut()}>
+            Sign Up
+          </button>
+        ) : (
+          <button className="hover:text-gray-300" onClick={() => signIn()}>
+            Sign In
+          </button>
+        )}
       </div>
     </header>
   )
 }
 
-export default Navbar
+export default Header
