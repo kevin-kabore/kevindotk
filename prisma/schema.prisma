@@ -42,18 +42,21 @@ model Session {
 }
 
 model User {
-  id        String    @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  posts     Post[]
-  comments  Comment[]
-  likes     Like[]
+  
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  wallets       Wallet[]
+  favorites     Favorite[]
 }
 
 model VerificationToken {
@@ -66,36 +69,83 @@ model VerificationToken {
 
 
 model Post {
-  id           Int       @id @default(autoincrement())
-  title        String
-  content      String
-  summary      String
-  authorId     String
-  author       User      @relation(fields: [authorId], references: [id])
-  comments     Comment[]
-  likes        Like[]
-  views        Int       @default(0)
-  createdAt    DateTime  @default(now())
-  onChainRef   String?   // Optional: link to the blockchain reference, if minted as NFT
+  id            Int       @id @default(autoincrement())
+  title         String
+  content       String
+  summary       String
+  authorId      String
+  views         Int       @default(0)
+  createdAt     DateTime  @default(now())
+  minted        Boolean   @default(false) 
+ 
+  author        User      @relation(fields: [authorId], references: [id])
+  comments      Comment[]
+  likes         Like[]
+  transactions  Transaction[]
+  favorites     Favorite[]
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
   content   String
   postId    Int
-  post      Post     @relation(fields: [postId], references: [id])
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
+  
+  post      Post     @relation(fields: [postId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
 }
 
 model Like {
   id        Int      @id @default(autoincrement())
   postId    Int
-  post      Post     @relation(fields: [postId], references: [id])
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
+  
+  post      Post     @relation(fields: [postId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
 
   @@unique([postId, authorId])
+}
+
+model Wallet {
+  id            String  @id @default(cuid())
+  userId        String
+  walletAddress String  @unique
+  network       String? // Optional: network name, e.g. "ethereum", "solane", "bsc"
+  status        String? // Optional: status of the wallet, e.g. "active", "pending" "disabled"
+
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade) // a user can have multiple wallets
+
+  @@unique([userId, walletAddress])
+}
+
+model Transaction {
+  id          String    @id @default(cuid())
+  type        String    // Type of transaction, e.g., "mint", "transfer"
+  status      String    // Status, e.g., "pending", "completed", "failed"
+  amount      Float?    // Optional: amount transferred
+  currency    String?   // Optional: currency of the transaction, e.g., "SOL", "ETH"
+  senderId    String?   // ID of the sender's wallet
+  receiverId  String?   // ID of the receiver's wallet
+  postId      Int?      // Associated post ID, if applicable
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  post        Post?      @relation(fields: [postId], references: [id]) // a transaction can be associated with a post
+  favorites   Favorite[] // one transaction (the "mint") can be associated with multiple favorites
+}
+
+model Favorite {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  postId        Int
+  transactionId String
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id]) // a user can have multiple favorites
+  post          Post     @relation(fields: [postId], references: [id]) // a post can have multiple favorites
+  transaction   Transaction @relation(fields: [transactionId], references: [id]) // a transaction can be associated with multiple favorites
+
+  @@unique([userId, postId, transactionId])
 }
