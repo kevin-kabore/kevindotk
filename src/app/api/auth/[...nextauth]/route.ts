@@ -19,4 +19,6 @@ export const authOptions = {
 }
 // TODO: Fix this type error, it works fine in the app
 // @ts-ignore
-export default NextAuth(authOptions)
+const handler = NextAuth(authOptions)
+
+export {handler as GET, handler as POST}

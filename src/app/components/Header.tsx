@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Link from 'next/link'
 import {signIn, signOut, useSession} from 'next-auth/react'
@@ -32,7 +33,7 @@ const HomeDropdownMenu: React.FC = () => {
 const Header: React.FC = () => {
   const {data: session} = useSession()
   return (
-    <header className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
+    <nav className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
@@ -58,7 +59,7 @@ const Header: React.FC = () => {
           </button>
         )}
       </div>
-    </header>
+    </nav>
   )
 }
 
