@@ -14,26 +14,8 @@ export default function Blog({params}: {params: {walletId: string}}) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">Blog</h1>
-      <div>
-        {posts?.map(post => {
-          const createdAt = new Date(post.createdAt).toLocaleDateString(
-            'en-US',
-            {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            },
-          )
-          return (
-            <article key={post.id} className="mb-5">
-              <h2 className="text-2xl font-semibold">{post.title}</h2>
-              <p className="text-gray-500">{createdAt}</p>
-              <p>{post.summary}</p>
-            </article>
-          )
-        })}
-      </div>
+      <h1 className="text-4xl font-bold mb-4">Walelt ID: {params.walletId}</h1>
+      <div>TODO: Lust of Wallet ID posts</div>
     </div>
   )
 }

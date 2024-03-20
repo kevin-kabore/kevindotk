@@ -1,7 +1,7 @@
 'use client'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
-import Header from '@/app/components/Header'
+import NavBar from '@/app/components/NavBar'
 import '../../styles/globals.css'
 import {SessionProvider, useSession} from 'next-auth/react'
 
@@ -21,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <SessionProvider>
         <body className={inter.className}>
-          <Header />
-          {children}
-          <footer></footer>
+          <NavBar />
+          <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-black min-h-screen py-4 px-4">
+            <main className="text-white min-h-screen">{children}</main>
+          </div>
+          <footer>Footer</footer>
         </body>
       </SessionProvider>
     </html>

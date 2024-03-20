@@ -29,11 +29,10 @@ const HomeDropdownMenu: React.FC = () => {
   ]
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
-
-const Header: React.FC = () => {
+const NavBar: React.FC = () => {
   const {data: session} = useSession()
   return (
-    <nav className="w-full text-white py-4 px-6 z-50 flex justify-between items-center border-solid ">
+    <nav className="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-4 px-6 z-50 flex justify-between items-center border-solid">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
@@ -51,11 +50,11 @@ const Header: React.FC = () => {
       <div className="flex items-center space-x-4">
         {session ? (
           <button className="hover:text-gray-300" onClick={() => signOut()}>
-            Sign Up
+            Sign In
           </button>
         ) : (
           <button className="hover:text-gray-300" onClick={() => signIn()}>
-            Sign In
+            Sign Out
           </button>
         )}
       </div>
@@ -63,4 +62,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header
+export default NavBar
