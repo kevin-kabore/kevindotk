@@ -21,11 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body className={inter.className}>
-          <NavBar />
-          <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-black min-h-screen py-4 px-4">
-            <main className="text-white min-h-screen">{children}</main>
+          <div className="w-full h-full min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+            <NavBar />
+            <main className="px-4 py-4 mx-auto sm:px-6 md:py-6">
+              {children}
+            </main>
+            <footer>Footer</footer>
           </div>
-          <footer>Footer</footer>
         </body>
       </Providers>
     </html>

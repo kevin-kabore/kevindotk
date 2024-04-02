@@ -2,6 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import {signIn, signOut, useSession} from 'next-auth/react'
+import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
 
 import DropdownMenu from './DropdownMenu'
 
@@ -32,9 +33,10 @@ const HomeDropdownMenu: React.FC = () => {
 }
 const NavBar: React.FC = () => {
   const {data: session} = useSession()
+  console.log('session:', session)
 
   return (
-    <nav className="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-4 px-6 z-50 flex justify-between items-center border-solid">
+    <nav className="py-4 px-6 z-50 flex justify-between items-center border-solid">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
@@ -52,12 +54,10 @@ const NavBar: React.FC = () => {
       <div className="flex items-center space-x-4">
         {session ? (
           <button className="hover:text-gray-300" onClick={() => signOut()}>
-            Sign In
-          </button>
-        ) : (
-          <button className="hover:text-gray-300" onClick={() => signIn()}>
             Sign Out
           </button>
+        ) : (
+          <DynamicWidget />
         )}
       </div>
     </nav>
