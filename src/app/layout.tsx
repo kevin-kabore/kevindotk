@@ -3,7 +3,7 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import NavBar from '@/app/components/NavBar'
 import '../../styles/globals.css'
-import {SessionProvider, useSession} from 'next-auth/react'
+import Providers from '@/app/providers'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SessionProvider>
+      <Providers>
         <body className={inter.className}>
           <NavBar />
           <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-black min-h-screen py-4 px-4">
@@ -27,7 +27,7 @@ export default function RootLayout({
           </div>
           <footer>Footer</footer>
         </body>
-      </SessionProvider>
+      </Providers>
     </html>
   )
 }
