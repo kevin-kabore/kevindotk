@@ -18,6 +18,8 @@
     "@dynamic-labs/solana": "^1.4.4",
     "@dynamic-labs/wagmi-connector": "^1.4.4",
     "@prisma/client": "^5.10.1",
+    "@types/jsonwebtoken": "^9.0.6",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "next-auth": "^4.24.6",
     "react": "^18",

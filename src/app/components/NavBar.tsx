@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import {signIn, signOut, useSession} from 'next-auth/react'
-import {usePrivy} from '@privy-io/react-auth'
+import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
 
 import DropdownMenu from './DropdownMenu'
 
@@ -33,11 +33,9 @@ const HomeDropdownMenu: React.FC = () => {
 }
 const NavBar: React.FC = () => {
   const {data: session} = useSession()
-  const privy = usePrivy()
-  const {login, logout, authenticated, ready, user} = privy
 
   return (
-    <nav className="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-4 px-6 z-50 flex justify-between items-center border-solid">
+    <nav className="py-4 px-6 z-50 flex justify-between items-center border-solid">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         {/* Logo/Home */}
@@ -52,20 +50,13 @@ const NavBar: React.FC = () => {
         <Link href="/blog">Blog</Link>
       </div>
       {/* Right section */}
-      {authenticated ? (
-        <button onClick={() => logout()}>log out</button>
-      ) : (
-        <button onClick={() => login()}>login</button>
-      )}
       <div className="flex items-center space-x-4">
         {session ? (
           <button className="hover:text-gray-300" onClick={() => signOut()}>
-            Sign In
-          </button>
-        ) : (
-          <button className="hover:text-gray-300" onClick={() => signIn()}>
             Sign Out
           </button>
+        ) : (
+          <DynamicWidget />
         )}
       </div>
     </nav>
