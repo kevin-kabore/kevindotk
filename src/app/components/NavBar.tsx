@@ -33,7 +33,6 @@ const HomeDropdownMenu: React.FC = () => {
 }
 const NavBar: React.FC = () => {
   const {data: session} = useSession()
-  console.log('session:', session)
 
   return (
     <nav className="py-4 px-6 z-50 flex justify-between items-center border-solid">
