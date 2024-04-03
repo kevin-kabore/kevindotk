@@ -1,8 +1,10 @@
 'use-client'
 
-import {DynamicContextProvider} from '@dynamic-labs/sdk-react-core'
-import {DynamicWagmiConnector} from '@dynamic-labs/wagmi-connector'
-import {SolanaWalletConnectors} from '@dynamic-labs/solana'
+import {
+  DynamicContextProvider,
+  DynamicWagmiConnector,
+  SolanaWalletConnectors,
+} from '@/app/lib/dynamic'
 import {getCsrfToken} from 'next-auth/react'
 
 function DynamicProvider({children}: {children: React.ReactNode}) {
@@ -26,8 +28,8 @@ function DynamicProvider({children}: {children: React.ReactNode}) {
               body: `csrfToken=${encodeURIComponent(
                 csrfToken as string | number,
               )}&token=${encodeURIComponent(authToken)}`,
-            })
-              .then(res => {
+            }).then(
+              res => {
                 if (res.ok) {
                   console.log('LOGGED IN', res)
                   // Handle success - maybe redirect to the home page or user dashboard
@@ -35,11 +37,12 @@ function DynamicProvider({children}: {children: React.ReactNode}) {
                   // Handle any errors - maybe show an error message to the user
                   console.error('Failed to log in')
                 }
-              })
-              .catch(error => {
+              },
+              err => {
                 // Handle any exceptions
-                console.error('Error logging in', error)
-              })
+                console.error('Error logging in', err)
+              },
+            )
           },
         },
       }}

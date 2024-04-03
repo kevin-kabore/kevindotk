@@ -1,33 +1,17 @@
 import NextAuth from 'next-auth'
-import type {AuthOptions} from 'next-auth'
-// import GoogleProvider from 'next-auth/providers/google'
-// import type NextAuthConfig from 'next-auth'
-
 import Credentials from '@auth/core/providers/credentials'
 import {validateJWT} from '@/app/lib/authHelpers'
-import {User} from '@prisma/client'
-
 import {PrismaAdapter} from '@auth/prisma-adapter'
 import {PrismaClient} from '@prisma/client'
 
+import type {NextAuthOptions} from 'next-auth'
+import type {Adapter} from 'next-auth/adapters'
+import type {User} from '@prisma/client'
+
 const prisma = new PrismaClient()
 
-// export const authOptions = {
-//   providers: [],
-
-//   // session: {
-//   //   strategy: 'jwt' as const,
-//   // },
-// }
-// // TODO: Fix this type error, it works fine in the app
-// // @ts-ignore
-// const handler = NextAuth(authOptions)
-
-// export {handler as GET, handler as POST}
-
 export const authOptions = {
-  // @ts-ignore
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     // @ts-ignore
     Credentials({
@@ -47,6 +31,7 @@ export const authOptions = {
 
         if (jwtPayload) {
           // Transform the JWT payload into your user object
+          // TODO: associate user details and wallet address
           const user = {
             id: jwtPayload.sub, // Assuming 'sub' is the user ID
             name: jwtPayload.name || '', // Replace with actual field from JWT payload
@@ -63,15 +48,13 @@ export const authOptions = {
   callbacks: {
     // @ts-ignore
     authorized({request, auth}: {request: any; auth: any}) {
-      //
       const {pathname} = request.nextUrl
       if (pathname === '/middleware-example') return !!auth
       return true
     },
   },
-} satisfies AuthOptions
+} satisfies NextAuthOptions
 
 // @ts-ignore
 const handler = NextAuth(authOptions)
-
 export {handler as GET, handler as POST}

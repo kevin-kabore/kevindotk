@@ -1,44 +1,7 @@
 import jwt, {JwtPayload, Secret, VerifyErrors} from 'jsonwebtoken'
 
-export const validateJWT = async (
-  token: string,
-): Promise<JwtPayload | null> => {
-  try {
-    const decodedToken =
-      ((await new Promise()) < JwtPayload) |
-      (null >
-        ((resolve, reject) => {
-          jwt.verify(
-            token,
-            getKey,
-            {algorithms: ['RS256']},
-            (
-              err: VerifyErrors | null,
-              decoded: string | JwtPayload | undefined,
-            ) => {
-              console.log('decoded the jwt')
-              if (err) {
-                reject(err)
-              } else {
-                // Ensure that the decoded token is of type JwtPayload
-                if (typeof decoded === 'object' && decoded !== null) {
-                  resolve(decoded)
-                } else {
-                  reject(new Error('Invalid token'))
-                }
-              }
-            },
-          )
-        }))
-    return decodedToken
-  } catch (error) {
-    console.error('Invalid token:', error)
-    return null
-  }
-}
-
 export const getKey = (
-  headers,
+  headers: any,
   callback: (err: Error | null, key?: Secret) => void,
 ): void => {
   console.log('calling getKey')
@@ -68,4 +31,41 @@ export const getKey = (
       console.error(err)
       callback(err) // Pass the error to the callback
     })
+}
+
+export const validateJWT = async (
+  token: string,
+): Promise<JwtPayload | null> => {
+  try {
+    const decodedToken = await new Promise<JwtPayload | null>(
+      (resolve, reject) => {
+        jwt.verify(
+          token,
+          getKey,
+          {algorithms: ['RS256']},
+          (
+            err: VerifyErrors | null,
+            decoded: string | JwtPayload | undefined,
+          ) => {
+            console.log('decoded the jwt')
+            if (err) {
+              reject(err)
+            } else {
+              console.log('checking the type of decoded')
+              // Ensure that the decoded token is of type JwtPayload
+              if (typeof decoded === 'object' && decoded !== null) {
+                resolve(decoded)
+              } else {
+                reject(new Error('Invalid token'))
+              }
+            }
+          },
+        )
+      },
+    )
+    return decodedToken
+  } catch (error) {
+    console.error('Invalid token:', error)
+    return null
+  }
 }
