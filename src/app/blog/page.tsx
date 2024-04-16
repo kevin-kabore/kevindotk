@@ -1,13 +1,12 @@
 'use client'
-
-import * as React from 'react'
+import {useEffect, useState} from 'react'
 import {Post} from '@prisma/client'
 
 export default function BlogPage() {
-  const [posts, setPosts] = React.useState<Post[]>([])
-  const [error, setError] = React.useState<string | null>(null)
+  const [posts, setPosts] = useState<Post[]>([])
+  const [error, setError] = useState<string | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('http://localhost:3000/api/posts').then(
       res => res.json().then(data => setPosts(data.posts)),
       err => setError(err),

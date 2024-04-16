@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:15-alpine
+    ports:
+      - 5432:5432 # enables connecting locally via psql
+    container_name: kevindotk-postgres
+    environment:
+      POSTGRES_DB: kevindotk
+      POSTGRES_HOST_AUTH_METHOD: trust
+    # volumes:
+    #   - postgres:/var/lib/postgresql/data
+    restart: always
