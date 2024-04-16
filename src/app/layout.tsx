@@ -1,7 +1,7 @@
 'use client'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
-import NavBar from '@/app/components/NavBar'
+import NavBar from '@/app/components/navbar'
 import '../../styles/globals.css'
 import Providers from '@/app/providers'
 

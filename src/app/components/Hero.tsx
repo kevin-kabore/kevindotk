@@ -1,5 +1,6 @@
 'use client'
-import TextSlideshow from './TextSlideshow'
+
+import TextSlideshow from './text-slideshow'
 
 export const Hero: React.FC = () => {
   const scrollToAbout = () => {

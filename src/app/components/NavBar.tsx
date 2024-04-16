@@ -1,12 +1,13 @@
 'use client'
-import React from 'react'
+import type {FC} from 'react'
 import Link from 'next/link'
+import {usePathname} from 'next/navigation'
 import {signIn, signOut, useSession} from 'next-auth/react'
 import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
 
-import DropdownMenu from './DropdownMenu'
+import DropdownMenu from './dropdown-menu'
 
-const HomeDropdownMenu: React.FC = () => {
+const HomeDropdownMenu: FC = () => {
   const items = [
     {
       title: 'About',
@@ -31,8 +32,9 @@ const HomeDropdownMenu: React.FC = () => {
   ]
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
-const NavBar: React.FC = () => {
+const NavBar: FC = () => {
   const {data: session} = useSession()
+  const pathname = usePathname()
 
   return (
     <nav className="py-4 px-6 z-50 flex justify-between items-center border-solid">
@@ -51,12 +53,17 @@ const NavBar: React.FC = () => {
       </div>
       {/* Right section */}
       <div className="flex items-center space-x-4">
+        {pathname === '/blog' && (
+          <Link href="/blog/new">
+            <button className="hover:text-gray-300">✍️ write</button>
+          </Link>
+        )}
         {session ? (
           <button className="hover:text-gray-300" onClick={() => signOut()}>
             Sign Out
           </button>
         ) : (
-          <DynamicWidget />
+          <DynamicWidget variant="dropdown" />
         )}
       </div>
     </nav>

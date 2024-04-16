@@ -83,6 +83,10 @@ model Post {
   likes         Like[]
   transactions  Transaction[]
   favorites     Favorite[]
+  
+  // so we can order posts by creation date
+  @@index([createdAt])
+  @@map("posts")
 }
 
 model Comment {
