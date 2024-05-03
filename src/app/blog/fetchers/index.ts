@@ -10,6 +10,6 @@ export function usePosts() {
   return {
     posts,
     isLoading,
-    isError: error,
+    isError: error, // TODO: return error message
   }
 }
