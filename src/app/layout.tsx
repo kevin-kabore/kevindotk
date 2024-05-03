@@ -1,7 +1,7 @@
 'use client'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
-import NavBar from '@/app/components/navbar'
+import {NavBar} from '@/app/components/navbar'
 import '../../styles/globals.css'
 import Providers from '@/app/providers'
 
@@ -19,17 +19,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={inter.className}>
-          <div className="w-full h-full min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+      <body className={inter.className}>
+        <Providers>
+          <div className="flex flex-col h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
             <NavBar />
-            <main className="px-4 py-4 mx-auto sm:px-6 md:py-6">
-              {children}
-            </main>
-            <footer>Footer</footer>
+            <main className="flex-1 px-4 py-4 sm:px-6 md:py-6">{children}</main>
+            <footer className="h-16 flex items-center justify-center">
+              Footer
+            </footer>
           </div>
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   )
 }
