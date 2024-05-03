@@ -2,10 +2,10 @@
 import type {FC} from 'react'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
-import {signIn, signOut, useSession} from 'next-auth/react'
+import {signOut, useSession} from 'next-auth/react'
 import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
 
-import DropdownMenu from './dropdown-menu'
+import {DropdownMenu} from '../dropdown-menu'
 
 const HomeDropdownMenu: FC = () => {
   const items = [
@@ -32,7 +32,8 @@ const HomeDropdownMenu: FC = () => {
   ]
   return <DropdownMenu title="Me" items={items} openOnHover />
 }
-const NavBar: FC = () => {
+
+export const NavBar: FC = () => {
   const {data: session} = useSession()
   const pathname = usePathname()
 
@@ -69,5 +70,3 @@ const NavBar: FC = () => {
     </nav>
   )
 }
-
-export default NavBar

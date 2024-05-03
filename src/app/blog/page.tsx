@@ -1,21 +1,16 @@
 'use client'
-import {useEffect, useState} from 'react'
-import {Post} from '@prisma/client'
+import {usePosts} from './fetchers'
+import {Spinner} from '../components/spinner'
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [error, setError] = useState<string | null>(null)
+  const {posts, isLoading, isError} = usePosts()
 
-  useEffect(() => {
-    fetch('http://localhost:3000/api/posts').then(
-      res => res.json().then(data => setPosts(data.posts)),
-      err => setError(err),
-    )
-  }, [])
-
-  return (
-    <div>
-      {posts?.map(post => {
+  let render
+  isLoading
+    ? (render = <Spinner />)
+    : isError
+    ? (render = <p>Oh no, something went wrong :(</p>)
+    : (render = posts?.map(post => {
         const createdAt = new Date(post.createdAt).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
@@ -28,7 +23,11 @@ export default function BlogPage() {
             <p>{post.summary}</p>
           </article>
         )
-      })}
+      }))
+
+  return (
+    <div className="flex justify-center">
+      <div className="mx-auto">{render}</div>
     </div>
   )
 }
