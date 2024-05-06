@@ -2,7 +2,7 @@
 import type {FC} from 'react'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
-import {signOut, useSession} from 'next-auth/react'
+// import {signOut, useSession} from 'next-auth/react'
 import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
 
 import {DropdownMenu} from '../dropdown-menu'
@@ -34,7 +34,6 @@ const HomeDropdownMenu: FC = () => {
 }
 
 export const NavBar: FC = () => {
-  const {data: session} = useSession()
   const pathname = usePathname()
 
   return (
@@ -59,13 +58,7 @@ export const NavBar: FC = () => {
             <button className="hover:text-gray-300">✍️ write</button>
           </Link>
         )}
-        {session ? (
-          <button className="hover:text-gray-300" onClick={() => signOut()}>
-            Sign Out
-          </button>
-        ) : (
-          <DynamicWidget variant="dropdown" />
-        )}
+        <DynamicWidget variant="dropdown" />
       </div>
     </nav>
   )
