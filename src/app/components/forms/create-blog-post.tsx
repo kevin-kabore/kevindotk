@@ -2,7 +2,6 @@
 
 import {useForm, SubmitHandler} from 'react-hook-form'
 import {useUserWallets, useDynamicContext} from '@dynamic-labs/sdk-react-core'
-// import {Post} from '@prisma/client'
 
 interface Inputs {
   title: string
@@ -14,14 +13,15 @@ interface Inputs {
 
 const CreateBlogPost: React.FC = () => {
   const {user} = useDynamicContext()
-  const [firstWallet] = useUserWallets()
   const {register, handleSubmit} = useForm<Inputs>()
-
-  const {id: walletId, address: walletAddress} = firstWallet
+  const wallets = useUserWallets()
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    // console.log('data:', data)
     const {title, content} = data
+    const firstWallet = wallets[0] ?? {}
+    const walletId = firstWallet?.id
+    const walletAddress = firstWallet?.address
+
     const body = {
       title,
       content,
