@@ -4,7 +4,7 @@ services:
   database:
     image: postgres:15-alpine
     ports:
-      - 5432:5432 # enables connecting locally via psql
+      - 5433:5433 # enables connecting locally via psql
     container_name: kevindotk-postgres
     environment:
       POSTGRES_DB: kevindotk
@@ -12,3 +12,4 @@ services:
     # volumes:
     #   - postgres:/var/lib/postgresql/data
     restart: always
+    command: -p 5433

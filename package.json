@@ -19,6 +19,7 @@
     "@dynamic-labs/wagmi-connector": "^1.4.4",
     "@prisma/client": "^5.10.1",
     "@types/jsonwebtoken": "^9.0.6",
+    "arweave": "^1.15.1",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
