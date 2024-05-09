@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 
 import {
   DynamicContextProvider,
@@ -7,7 +7,7 @@ import {
 } from '@/app/lib/dynamic'
 import {getCsrfToken} from 'next-auth/react'
 
-function DynamicProvider({children}: {children: React.ReactNode}) {
+export const DynamicProvider = ({children}: {children: React.ReactNode}) => {
   return (
     <DynamicContextProvider
       settings={{
@@ -47,9 +47,9 @@ function DynamicProvider({children}: {children: React.ReactNode}) {
         },
       }}
     >
-      <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+      {children}
     </DynamicContextProvider>
   )
 }
 
-export {DynamicProvider}
+// export {DynamicProvider}

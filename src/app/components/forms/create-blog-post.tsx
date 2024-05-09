@@ -1,7 +1,12 @@
 'use client'
 
 import {useForm, SubmitHandler} from 'react-hook-form'
-import {useUserWallets, useDynamicContext} from '@dynamic-labs/sdk-react-core'
+import {
+  useUserWallets,
+  useDynamicContext,
+  getAuthToken,
+} from '@dynamic-labs/sdk-react-core'
+import {useSession} from 'next-auth/react'
 
 interface Inputs {
   title: string
@@ -12,8 +17,13 @@ interface Inputs {
 }
 
 const CreateBlogPost: React.FC = () => {
-  const {user} = useDynamicContext()
   const {register, handleSubmit} = useForm<Inputs>()
+  const {user} = useDynamicContext()
+  const {data: session} = useSession()
+  console.log('session:', session)
+
+  // const data = useSession()
+  // console.log('session data:', data)
   const wallets = useUserWallets()
 
   const onSubmit: SubmitHandler<Inputs> = data => {

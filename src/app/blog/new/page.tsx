@@ -1,12 +1,15 @@
 import {CreateBlogPost} from '@/app/components/forms/create-blog-post'
+import {SessionProvider, DynamicProvider} from '@/app/components/providers'
 
-const NewBlogPage: React.FC = () => {
+export default async function NewBlogPage() {
   return (
     <div className="w-full">
       <h1 className="text-3xl font-bold">New Blog Post</h1>
-      <CreateBlogPost />
+      <SessionProvider>
+        <DynamicProvider>
+          <CreateBlogPost />
+        </DynamicProvider>
+      </SessionProvider>
     </div>
   )
 }
-
-export default NewBlogPage
