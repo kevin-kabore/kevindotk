@@ -1,9 +1,8 @@
 'use client'
 import type {FC} from 'react'
 import Link from 'next/link'
-import {usePathname} from 'next/navigation'
-import {signOut, useSession} from 'next-auth/react'
-import {DynamicWidget} from '@dynamic-labs/sdk-react-core'
+import {UserProfile} from '../user-profile'
+import {DynamicProvider} from '../providers/dynamic'
 
 import {DropdownMenu} from '../dropdown-menu'
 
@@ -34,9 +33,6 @@ const HomeDropdownMenu: FC = () => {
 }
 
 export const NavBar: FC = () => {
-  const {data: session} = useSession()
-  const pathname = usePathname()
-
   return (
     <nav className="py-4 px-6 z-50 flex justify-between items-center border-solid">
       {/* Left section */}
@@ -53,20 +49,9 @@ export const NavBar: FC = () => {
         <Link href="/blog">Blog</Link>
       </div>
       {/* Right section */}
-      <div className="flex items-center space-x-4">
-        {pathname === '/blog' && (
-          <Link href="/blog/new">
-            <button className="hover:text-gray-300">✍️ write</button>
-          </Link>
-        )}
-        {session ? (
-          <button className="hover:text-gray-300" onClick={() => signOut()}>
-            Sign Out
-          </button>
-        ) : (
-          <DynamicWidget variant="dropdown" />
-        )}
-      </div>
+      <DynamicProvider>
+        <UserProfile />
+      </DynamicProvider>
     </nav>
   )
 }

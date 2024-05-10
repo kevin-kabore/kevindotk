@@ -4,7 +4,6 @@ import {Post} from '@prisma/client'
 
 export default function Blog({params}: {params: {walletId: string}}) {
   const [posts, setPosts] = useState<Post[]>([])
-  console.log('posts:', posts)
 
   useEffect(() => {
     fetch('http://localhost:3000/api/posts').then(res =>
